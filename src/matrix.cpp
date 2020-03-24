@@ -62,12 +62,16 @@ matrix::matrix(int n, int m, int noOfElements, int **elemente) // constructor cu
 
 
 }
-
 matrix::matrix(const matrix& m1) // constructor de copiere
 {
     this->rows = m1.rows;
     this->cols = m1.cols;
     this->noOfElements = m1.noOfElements;
+    elemente = new int*[m1.noOfElements];
+    for( int i = 0; i < m1.noOfElements; i++)
+    {
+        elemente[i] = new int[3];
+    }
     for(int i = 0; i < m1.noOfElements; i++)
     {
         this->elemente[i][0] = m1.elemente[i][0];
@@ -150,7 +154,6 @@ matrix matrix::trans() // transpusa matricei
                 k++;
 
             }
-
     matrix m(cols, rows, noOfElements, t);
     return m;
 }
@@ -217,10 +220,20 @@ ostream& operator<<(ostream& g, const matrix& m) // scrierea unei matrice
 
 matrix& matrix::operator=(const matrix& m2) // atribuire
 {
-    rows = m2.rows;
-    cols = m2.cols;
-    noOfElements = m2.noOfElements;
-    elemente = m2.elemente;
+   this->rows = m2.rows;
+    this->cols = m2.cols;
+    this->noOfElements = m2.noOfElements;
+    this->elemente = new int*[m2.noOfElements];
+    for( int i = 0; i < m2.noOfElements; i++)
+    {
+        elemente[i] = new int[3];
+    }
+    for(int i = 0; i < m2.noOfElements; i++)
+    {
+        this->elemente[i][0] = m2.elemente[i][0];
+        this->elemente[i][1] = m2.elemente[i][1];
+        this->elemente[i][2] = m2.elemente[i][2];
+    }
 
     return *this;
 
@@ -383,25 +396,6 @@ int* matrix::operator[](const int& index) const // obtinerea unei linii
     return linie;
 }
 
-matrix operator*(const int& x, const matrix& m1) // inmultire intre scalar si matrice
-{
-
-    int **m2_elements = new int*[m1.noOfElements];
-    for(int i = 0; i < m1.noOfElements; i++)
-        m2_elements[i] = new int[3];
-
-    for(int i = 0; i <m1.noOfElements; i++)
-    {
-        m2_elements[i][0] = m1.elemente[i][0];
-        m2_elements[i][1] = m1.elemente[i][1];
-        m2_elements[i][2] = x*m1.elemente[i][2];
-
-    }
-
-    matrix m2(m1.rows,m1.cols,m1.noOfElements,m2_elements);
-    return m2;
-}
-
 matrix operator*(const matrix& m1, matrix& m2) // inmultire intre doua matrice
 {
     if(m1.cols != m2.rows)
@@ -413,8 +407,6 @@ matrix operator*(const matrix& m1, matrix& m2) // inmultire intre doua matrice
     matrix t;
     t = m2.trans();
     int nr_elem = 0;
-
-
 
     for(int i = 0; i < m1.rows; i++)
     {
@@ -430,6 +422,7 @@ matrix operator*(const matrix& m1, matrix& m2) // inmultire intre doua matrice
             if(sum != 0)
             {
                 nr_elem++;
+
             }
         }
     }
