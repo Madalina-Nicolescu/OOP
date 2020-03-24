@@ -1,0 +1,10 @@
+# depslib dependency file v1.0
+1585065238 source:c:\facultate\semestrul 2\poo\sparsematrix v2\oop\src\matrix.cpp
+	"matrix.h"
+	<iostream>
+	<stdio.h>
+
+1584987452 c:\facultate\semestrul 2\poo\sparsematrix v2\oop\include\matrix.h
+	<iostream>
+	<stdio.h>
+

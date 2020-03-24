@@ -2,20 +2,22 @@
 #include <stdio.h>
 #include "matrix.h"
 #include<cassert>
+#include<fstream>
 using namespace std;
 
+ifstream f("input.txt");
 
 void Test()
 {
      matrix m1;
     matrix m2, m_suma, m_dif, m_mul, m_pow,m3;
 
-    cin>>m1;
-    cin>>m2;
-    cin>>m_suma;
-    cin>>m_dif;
-    cin>>m_mul;
-    cin>>m_pow;
+    f>>m1;
+    f>>m2;
+    f>>m_suma;
+    f>>m_dif;
+    f>>m_mul;
+    f>>m_pow;
 
     assert(m1+m2 == m_suma);
     assert(m1-m2 == m_dif);
